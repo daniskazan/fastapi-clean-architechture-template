@@ -9,6 +9,9 @@ class AppConfig(pydantic_settings.BaseSettings):
         "DB_URL",
         "postgresql://postgres:postgres@localhost:5432/postgres"
     )
+    APP_HOST: str = os.environ.get("APP_HOST", "0.0.0.0")
+    APP_PORT: int = os.environ.get("APP_PORT", 8000)
+    UVICORN_WORKERS: int = os.environ.get("UVICORN_WORKERS", 1)
 
 
-config = AppConfig()
+app_config = AppConfig()
