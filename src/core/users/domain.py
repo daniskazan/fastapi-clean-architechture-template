@@ -1,14 +1,19 @@
-from datetime import datetime
 from uuid import UUID
-from uuid_extensions import uuid7
+import datetime as dt
+
+from passlib.context import CryptContext
+import uuid_extensions
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 class User:
     def __init__(
-        self, *, username: str, password: str, email: str, date_of_birth: datetime
-    ):
-        self.id: UUID = uuid7()
+        self, *, username: str, password: str, date_of_birth: dt.date, email: str
+    ) -> None:
+        self.id: UUID = uuid_extensions.uuid7()
         self.username: str = username
-        self.password: str = password
-        self.date_of_birth: datetime = date_of_birth
-        self.email = email
+        self.password: str = pwd_context.hash(password)
+        self.date_of_birth: dt.date = date_of_birth
+        self.email: str = email

@@ -13,6 +13,8 @@ pydantic-settings = "^2.1.0"
 pydantic = {extras = ["email"], version = "^2.5.3"}
 sqlalchemy = "^2.0.24"
 uuid7 = "^0.1.0"
+psycopg2-binary = "^2.9.9"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
 
 
 [tool.poetry.group.dev.dependencies]
