@@ -8,6 +8,7 @@ from core.users.models import UserORM
 from core.users.domain import User
 from core.users.exceptions import UserAlreadyExistsError
 
+
 class UserRepository(Repository):
     def get_by_uuid(self, *, uuid: UUID) -> User:
         query = sql.select(UserORM).filter_by(id=uuid)

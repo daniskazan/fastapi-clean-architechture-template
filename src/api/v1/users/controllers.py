@@ -11,7 +11,7 @@ from core.common.utils.build_generic_response import OkResponse
 from core.users.domain import User
 from core.users.service import UserService
 
-router = APIRouter(prefix="/users")
+router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.post("/", name="users:registration")

@@ -38,6 +38,3 @@ class OkResponse(BaseModel, Generic[T]):
     @classmethod
     def new(cls, *, status_code: int, data: T):
         return cls(status_code=status_code, data=data)
-
-
-BaseORMModel.metadata.create_all(bind=engine)
