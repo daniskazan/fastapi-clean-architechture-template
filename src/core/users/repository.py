@@ -25,7 +25,7 @@ class UserRepository(Repository):
 
             self.db.add(user_orm)
             self.db.commit()
-        except exc.IntegrityError:
+        except exc.PendingRollbackError:
             raise UserAlreadyExistsError
         return user
 
@@ -34,3 +34,16 @@ class UserRepository(Repository):
 
     def delete(self, *, user: User):
         return user
+
+    def get_by_email(
+            self,
+            *,
+            email: str
+    ) -> User:
+        query = sql.select(UserORM).filter_by(email=email)
+        user = self.db.execute(query)
+        try:
+            user_orm = user.scalar_one()
+        except exc.NoResultFound:
+            raise exceptions.UserNotFoundError
+        return user_orm.convert_to_domain()

@@ -4,6 +4,7 @@ from sqlalchemy import types
 
 from core.common.models.base import BaseORMModel
 from core.users.domain import User
+from core.common.security import pwd_context
 
 
 class UserORM(BaseORMModel):
@@ -20,10 +21,11 @@ class UserORM(BaseORMModel):
         return User(
             username=self.username,
             password=self.password,
-            email=self.username,
+            email=self.email,
             date_of_birth=self.date_of_birth,
         )
 
     @classmethod
     def build_user_orm_from_domain(cls, *, user: User) -> "UserORM":
+        user.password = pwd_context.hash(user.password)
         return UserORM(**user.__dict__)

@@ -17,7 +17,7 @@ from core.tasks.service import TaskService
 router = APIRouter(prefix="/tasks", tags=["tasks"])
 
 
-@router.get("/", name="tasks:get")
+@router.get("/{task_id}", name="tasks:get")
 async def get_task(
         request: Request,
         task_id: UUID,
@@ -41,7 +41,7 @@ async def publish_task(
     return OkResponse.new(status_code=status.HTTP_201_CREATED, data=jsonable_encoder(task))
 
 
-@router.delete("/", name="tasks:delete")
+@router.delete("/{task_id}", name="tasks:delete")
 async def delete_task(
         request: Request,
         task_id: UUID,
